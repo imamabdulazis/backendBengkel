@@ -8,4 +8,6 @@ function makeid(length) {
     return result;
 }
 
-module.exports = { makeid }
+const saltRounds = 10;
+
+module.exports = { makeid, saltRounds }

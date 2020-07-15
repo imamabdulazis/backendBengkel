@@ -25,7 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 //     return res.sendStatus(500);
 // });
 
-//user route
+//user
 app.post('/signupUser', auth.signUp);
+app.post('/loginUser', auth.login);
 
 exports.api = functions.region('asia-east2').https.onRequest(app);
