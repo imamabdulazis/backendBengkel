@@ -33,7 +33,10 @@ exports.signUp = (req, res) => {
     db.doc(`/users/${id_user}`).get()
         .then(doc => {
             if (doc.exists) {
-                return res.status(400).json({ handle: 'Internal Server Error!' })
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Internal Server Error!'
+                })
             } else {
                 return firebase.auth()
                     .createUserWithEmailAndPassword(newUser.email, newUser.password)
@@ -60,22 +63,32 @@ exports.signUp = (req, res) => {
         }).then(() => {
             return res.status(200).json({
                 status: 200,
-                id_user: id_user,
-                nama: newUser.nama,
-                nomor_telp: newUser.nomor_telp,
-                email: email,
-                alamat: newUser.alamat,
-                message: `Berhasil sign up ${email}`,
-                location: { lat: newUser.lat, lng: newUser.lng },
-                token: token,
+                message: `Berhasil daftar ${newUser.nama}`,
+                data: {
+                    id_user: id_user,
+                    nama: newUser.nama,
+                    nomor_telp: newUser.nomor_telp,
+                    email: email,
+                    alamat: newUser.alamat,
+                    message: `Berhasil sign up ${email}`,
+                    location: { lat: newUser.lat, lng: newUser.lng },
+                    imageUrl: `https://firebasestorage.googleapis.com/v0/b/${config.storageBucket}/o/${noImg}?alt=media`,
+                    token: token,
+                }
             })
         })
         .catch((err) => {
             console.error(err);
             if (err.code === 'auth/email-already-in-use') {
-                return res.status(400).json({ email: "email sudah digunakan!" })
+                return res.status(400).json({
+                    status: 400,
+                    email: "Email sudah digunakan!"
+                })
             } else {
-                return res.status(500).json({ error: err.code })
+                return res.status(500).json({
+                    status: 500,
+                    error: err.code
+                })
             }
         })
 }
