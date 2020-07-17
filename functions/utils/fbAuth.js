@@ -20,7 +20,7 @@ exports.fbAuth = (req, res, next) => {
         .then(decodeToken => {
             req.user = decodeToken;
             return db.collection('users')
-                .where('userId', '==', req.user.uid)
+                .where('id_user', '==', req.user.uid)
                 .limit(1)
                 .get();
         })
