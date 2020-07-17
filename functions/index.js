@@ -21,8 +21,12 @@ app.post('/login', auth.login);
 app.get('/getUser/:email', valToken.fbAuth, auth.getDetailUsers);
 
 // produk
-app.post('/postProduk', valToken.fbAuth, produk.postOneProduk);
-app.put('/updateProduk/:id', valToken.fbAuth, produk.updateProduk);
+app.post('/produk', valToken.fbAuth, produk.postOneProduk);
+app.put('/produk/:id', valToken.fbAuth, produk.updateProduk);
+app.put('/updateImage/:id', valToken.fbAuth, produk.updateImage);
+app.delete('/produk/:id', valToken.fbAuth, produk.deletOneProduk);
+app.get('/produk', valToken.fbAuth, produk.getAllProduk);
+app.get('/produkKategori/:kategori', valToken.fbAuth, produk.getKategoriProduk);
 
 
 
